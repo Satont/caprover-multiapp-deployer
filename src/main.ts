@@ -10,10 +10,10 @@ import { deployApps } from './api';
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.post('/', function (req, res) {
-  console.log(req.headers, req.body);
-  if (process.env.WEBHOOK_SECRET !== req.headers.WEBHOOK_SECRET) {
+  if (process.env.WEBHOOK_SECRET !== req.headers['webhook_secret']) {
     return res.status(400).send('Wrong secret');
   }
 
