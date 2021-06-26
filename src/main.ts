@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post('/', function (req, res) {
-  console.log(req.headers);
-  if (process.env.WEBHOOK_SECRET !== req.headers['webhook_secret']) {
+  console.log(req.headers, req.body);
+  if ([req.headers['webhook_secret'], req.body['webhook_secret']].includes(process.env.WEBHOOK_SECRET)) {
     return res.status(400).send('Wrong secret');
   }
 
