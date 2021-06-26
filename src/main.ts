@@ -11,7 +11,7 @@ const app = express();
 
 app.post('/', function (req, res) {
   if (process.env.WEBHOOK_SECRET !== req.headers.WEBHOOK_SECRET) {
-    console.log(req.headers.WEBHOOK_SECRET);
+    console.log(req);
     return res.status(400).send('Wrong secret');
   }
 
