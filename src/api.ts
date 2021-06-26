@@ -31,6 +31,7 @@ export async function deployApps() {
       },
       ...(defaultRequestOptions as any),
     });
+    console.info(`App ${app.appName} starting to deploy`);
   }
 }
 
@@ -42,6 +43,7 @@ async function getToken(): Promise<string> {
     ...(defaultRequestOptions as any),
   });
   defaultRequestOptions.headers['x-captain-auth'] = token;
+  console.info('Successfuly getted caprover token');
   return request.body.data.token;
 }
 
@@ -49,6 +51,8 @@ async function getApps() {
   const request = await got.get<{ data: { appDefinitions: App[] } }>(`${process.env.CAPROVER_ROOT}/api/v2/user/apps/appDefinitions`, {
     ...(defaultRequestOptions as any),
   });
+
+  console.info('Apps before filter: ', request.body.data.appDefinitions.length);
 
   const apps = request.body.data.appDefinitions.filter((a) => {
     if (!!process.env.POSTFIX) {
@@ -58,5 +62,6 @@ async function getApps() {
     }
   });
 
+  console.info('Apps after filter: ', apps.length);
   return apps;
 }

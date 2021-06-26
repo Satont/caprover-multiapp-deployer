@@ -39,6 +39,7 @@ function verifyPostData(req: Request, res: Response, next: NextFunction) {
 }
 
 app.post('/', verifyPostData, function (req, res) {
+  console.info('Starting deploying apps');
   deployApps();
   res.status(200).send('Ok');
 });
