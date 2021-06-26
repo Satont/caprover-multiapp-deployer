@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post('/', function (req, res) {
+  console.log(req.headers);
   if (process.env.WEBHOOK_SECRET !== req.headers['webhook_secret']) {
     return res.status(400).send('Wrong secret');
   }
